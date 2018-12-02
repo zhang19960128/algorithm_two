@@ -2,12 +2,12 @@
 #include <fstream>
 #include <list>
 #include <cmath>
-int merge_count_inversion(int* input,int a,int middle,int b){
+long int merge_count_inversion(int* input,int a,int middle,int b){
    int size=b-a+1;
    int* temparray=new int[size];
    int i=a;
    int j=middle+1;
-   int count=0;
+   long int count=0;
    for(int k=0;k<size;k++){
       if(i<middle+1 && j < b+1){
       if(input[i]<input[j]){
@@ -37,11 +37,11 @@ int merge_count_inversion(int* input,int a,int middle,int b){
    delete [] temparray;
    return count;
 }
-int mergesort_count_inversion(int* input,int a,int b){
+long int mergesort_count_inversion(int* input,int a,int b){
    int middle=floor((b+a)/2.0);
-   int count1;
-   int count2;
-   int count3;
+   long int count1;
+   long int count2;
+   long int count3;
    if(b-a==0){
       return 0;
    }
@@ -49,8 +49,8 @@ int mergesort_count_inversion(int* input,int a,int b){
       count1=mergesort_count_inversion(input,a,middle);
       count2=mergesort_count_inversion(input,middle+1,b);
       count3=merge_count_inversion(input,a,middle,b);
+      return count1+count2+count3;
    }
-   return count1+count2+count3;
 }
 int main(){
    std::fstream fs;
@@ -68,6 +68,5 @@ int main(){
       count++;
    }
    count=rawdata.size()-1;
-   int a[10]={2,1,3,4,5,6,7,8,9,10};
-   std::cout<<mergesort_count_inversion(a,0,9)<<std::endl;
+   std::cout<<mergesort_count_inversion(data,0,count-1)<<std::endl;
 }
